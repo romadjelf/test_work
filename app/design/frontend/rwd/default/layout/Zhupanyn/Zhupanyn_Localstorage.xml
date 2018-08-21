@@ -20,7 +20,4 @@
             <block type="zhupanyn_localstorage/storage" name="zh.localstorage.end" template="zhupanyn/localstorage/storage.phtml" after="product.info" />
         </reference>
     </catalog_product_view>
-    <!--<modulename_ajax_index>
-        <block type="modulename/block" name="root" template="path/to/template.phtml" />
-    </modulename_ajax_index>-->
 </layout>
