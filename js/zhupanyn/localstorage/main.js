@@ -102,6 +102,7 @@ Localstorage.prototype.currentStorage = function (storage, url) {
 
             storage = zhupanyn_localstorage.prepareStorageObject( data, zhupanyn_localstorage.getExpireTime() );
 
+            //Mage.Cookies.clear('user_login');
             var erase = new Date();
             erase.setDate(erase.getDate() - 1);
             var strstrstr = "user_login=0; expires=" + erase.toUTCString() + "; path=/; domain=" + zhupanyn_localstorage.domain;

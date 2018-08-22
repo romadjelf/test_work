@@ -35,7 +35,7 @@ class Zhupanyn_Localstorage_Block_Storage extends Mage_Core_Block_Template
     {
         $reports = Mage::getBlockSingleton('reports/product_viewed');
         return $reports->getPageSize();
-        //1111 2222
+        //terte erte
     }
 
 }
