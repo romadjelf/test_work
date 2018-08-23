@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <default>
+        <reference name="right.reports.product.viewed">
+            <action method="setTemplate"><t>zhupanyn/localstorage/viewed.phtml</t></action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>zhupanyn/localstorage/main.js</script></action>
+        </reference>
+    </default>
+
+    <catalog_category_layered_nochildren>
+        <reference name="left.reports.product.viewed">
+            <action method="setTemplate"><t>zhupanyn/localstorage/viewed.phtml</t></action>
+        </reference>
+    </catalog_category_layered_nochildren>
+
+    <catalog_product_view>
+        <reference name="content">
+            <block type="zhupanyn_localstorage/storage" name="zh.localstorage.end" template="zhupanyn/localstorage/storage.phtml" after="product.info" />
+        </reference>
+    </catalog_product_view>
+</layout>
