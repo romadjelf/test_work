@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+   <modules>
+      <Zhupanyn_Hellomagento>
+         <active>true</active>
+         <codePool>local</codePool>
+         <depends>
+             <Mage_Core/>
+         </depends>
+      </Zhupanyn_Hellomagento>
+      <Zhupanyn_Newproducts>
+         <active>true</active>
+         <codePool>local</codePool>
+      </Zhupanyn_Newproducts>
+      <Zhupanyn_Action>
+         <active>true</active>
+         <codePool>local</codePool>
+         <depends>
+            <Mage_Core/>
+         </depends>
+      </Zhupanyn_Action>
+   </modules>
+</config>

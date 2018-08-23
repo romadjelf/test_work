@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <menu>
+      <catalog>
+         <children>
+             <blockkk translate="title" module="cms">
+                 <title>Static Blocks 2</title>
+                 <action>adminhtml/cms_block</action>
+                 <sort_order>5</sort_order>
+             </blockkk>
+         </children>
+      </catalog>
+    </menu>
+    <acl>
+      <resources>
+         <admin>
+             <children>
+                <catalog>
+                  <children>
+                      <blockkk translate="title">
+                          <title>Static Blocks 2</title>
+                          <sort_order>5</sort_order>
+                      </blockkk>
+                  </children>
+                </catalog>
+             </children>
+         </admin>
+      </resources>
+    </acl>
+</config>
