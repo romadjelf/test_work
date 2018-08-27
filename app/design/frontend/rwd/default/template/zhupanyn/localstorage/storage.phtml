@@ -1,39 +1,29 @@
 <?php
     /* @var $this Zhupanyn_Localstorage_Block_Storage */
-
-    $product_array = $this->getProductRegistry();
-    if (!is_null($product_array['product_id'])) {
-        $product_id = $product_array['product_id'];
-    } else {
-        $product_id = 0;
-    }
+    $productArray = $this->getProductRegistry();
 ?>
 <script type="text/javascript">
 
-    var product_id = '<?=$product_id?>';
-    var page_size = '<?=$this->getPageSize()?>';
-    var zh_ls_url_ajax = '<?=$this->getUrl('zhupanyn_localstorage/ajax/products')?>';
+    var productId = '<?=$productArray['product_id']?>';
+    var localstorageUrlAjax = '<?=$this->getUrl('zhupanyn_localstorage/ajax/products')?>';
 
-    if (product_id != 0) {
+    if (productId != 0) {
 
         //localStorage.removeItem("zhupanyn_localstorage_product_viewed");
 
-        var obj_prod = {
-            product_id: product_id,
-            product_url: '<?=$product_array['product_url']?>',
-            img_src: '<?=$product_array['img_src']?>',
-            img_alt: '<?=$product_array['img_alt']?>',
-            product_name: '<?=$product_array['product_name']?>',
+        ZhupanynLocalstorage.productObject = {
+            product_id: productId,
+            product_url: '<?=$productArray['product_url']?>',
+            img_src: '<?=$productArray['img_src']?>',
+            img_alt: '<?=$productArray['img_alt']?>',
+            product_name: '<?=$productArray['product_name']?>',
         };
 
-        zhupanyn_localstorage.obj_prod = obj_prod;
-        zhupanyn_localstorage.page_size = page_size;
-        zhupanyn_localstorage.product_id = product_id;
-        zhupanyn_localstorage.time = '<?=$this->helper('zhupanyn_localstorage')->getTime()?>';
-        zhupanyn_localstorage.domain = '<?=$this->helper('zhupanyn_localstorage')->getDomain()?>';
+        ZhupanynLocalstorage.pageSize = '<?=$this->getPageSize()?>';
+        ZhupanynLocalstorage.time = '<?=$this->helper('zhupanyn_localstorage')->getTime()?>';
+        ZhupanynLocalstorage.domain = '<?=$this->helper('zhupanyn_localstorage')->getDomain()?>';
 
-        var storage = zhupanyn_localstorage.getJsonStorage();
-        zhupanyn_localstorage.currentStorage(storage, zh_ls_url_ajax);
+        ZhupanynLocalstorage.currentStorage(localstorageUrlAjax);
 
     }
 
