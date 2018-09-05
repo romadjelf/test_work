@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <adminhtml_catalog_product_index>
+        <reference name="content">
+            <block type="zhupanyn_imgloader/adminhtml_button" name="zhupanyn.imgloader.adminhtml.button" after="products_list" />
+        </reference>
+    </adminhtml_catalog_product_index>
+
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>zhupanyn</name>
+                <block>zhupanyn_imgloader/adminhtml_imgloader_edit_tab_list</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_zhupanyn_imgloader_list>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="zhupanyn_imgloader/adminhtml_imgloader_edit_tab_list" name="zhupanyn.imgloader.imgloader.edit.tab.list" />
+        </block>
+    </adminhtml_zhupanyn_imgloader_list>
+
+    <adminhtml_zhupanyn_imgloader_listgrid>
+        <update handle="adminhtml_zhupanyn_imgloader_list" />
+    </adminhtml_zhupanyn_imgloader_listgrid>
+
+</layout>

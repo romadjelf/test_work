@@ -38,63 +38,57 @@
    <adminhtml>
       <layout>
          <updates>
-            <!--<zhupanyn_action>
-               <file>Zhupanyn/Zhupanyn_Action.xml</file>
-            </zhupanyn_action>-->
+            <zhupanyn_imgloader>
+               <file>Zhupanyn/Zhupanyn_Imgloader.xml</file>
+            </zhupanyn_imgloader>
          </updates>
       </layout>
    </adminhtml>
    <global>
       <blocks>
-         <!--<zhupanyn_action>
-            <class>Zhupanyn_Action_Block</class>
-         </zhupanyn_action>-->
+         <zhupanyn_imgloader>
+            <class>Zhupanyn_Imgloader_Block</class>
+         </zhupanyn_imgloader>
       </blocks>
       <models>
-         <!--<zhupanyn_action>
-             <class>Zhupanyn_Action_Model</class>
-             <resourceModel>zhupanyn_action_resource</resourceModel>
-         </zhupanyn_action>
-         <zhupanyn_action_resource>
-            <class>Zhupanyn_Action_Model_Resource</class>
+         <zhupanyn_imgloader>
+             <class>Zhupanyn_Imgloader_Model</class>
+             <resourceModel>zhupanyn_imgloader_resource</resourceModel>
+         </zhupanyn_imgloader>
+         <zhupanyn_imgloader_resource>
+            <class>Zhupanyn_Imgloader_Model_Resource</class>
             <entities>
-               <action>
-                  <table>zhupanyn_action</table>
-               </action>
-               <action_product>
-                  <table>zhupanyn_action_product</table>
-               </action_product>
-               <test>
-                  <table>zhupanyn_test</table>
-               </test>
+               <list>
+                  <table>zhupanyn_imgloader_list</table>
+               </list>
             </entities>
-         </zhupanyn_action_resource>-->
+         </zhupanyn_imgloader_resource>
       </models>
       <helpers>
-         <!--<zhupanyn_action>
-            <class>Zhupanyn_Action_Helper</class>
-         </zhupanyn_action>-->
+         <zhupanyn_imgloader>
+            <class>Zhupanyn_Imgloader_Helper</class>
+         </zhupanyn_imgloader>
       </helpers>
       <resources>
-         <!--<zhupanyn_action>
+         <zhupanyn_imgloader>
             <setup>
-               <module>Zhupanyn_Action</module>
-               <class>Zhupanyn_Action_Model_Resource_Setup</class>
+               <module>Zhupanyn_Imgloader</module>
+               <class>Zhupanyn_Imgloader_Model_Resource_Setup</class>
             </setup>
-         </zhupanyn_action>-->
+         </zhupanyn_imgloader>
       </resources>
    </global>
    <default></default>
    <crontab></crontab>
    <admin>
       <routers>
-         <!--<adminhtml>
+         <adminhtml>
             <args>
                <modules>
-                  <zhupanyn_action after="Mage_Adminhtml">Zhupanyn_Action_Adminhtml</zhupanyn_action>
+                  <zhupanyn_imgloader after="Mage_Adminhtml">Zhupanyn_Imgloader_Adminhtml</zhupanyn_imgloader>
                </modules>
             </args>
-         </adminhtml>-->
+         </adminhtml>
       </routers>
    </admin>
 </config>
