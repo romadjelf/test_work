@@ -136,9 +136,10 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
 
         $this->addColumn('img_size', array(
             'header' => $helper->__('Image Size'),
-            'align'  => 'left',
+            'align'  => 'center',
             'type'   => 'text',
-            'index'  => 'img_size'
+            'index'  => 'img_size',
+            'frame_callback' => array($this, 'renderImgSize')
         ));
 
         $this->addColumn('status', array(
@@ -146,7 +147,6 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
             'align'  => 'center',
             'type'   => 'options',
             'index'  => 'status',
-            //'filter' => 'adminhtml/widget_grid_column_filter_select',
             'options'=> $helper->getStatusArray()
         ));
 
@@ -170,4 +170,32 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
         return $this->_getData('grid_url')
             ? $this->_getData('grid_url') : $this->getUrl('adminhtml/zhupanyn_imgloader/listgrid', array('_current'=>true));
     }
+
+    public function renderImgSize($renderedValue, $row, $column, $isExport)
+    {
+        $bytes = $row->getImgSize();
+        if (!empty($bytes)) {
+            $KBytes = $this->getKBytes($bytes);
+            if ($KBytes > 1024) {
+                $MBytes = $this->getMBytes($bytes);
+                $renderedValue = $MBytes.'мб';
+            } else {
+                $renderedValue = $KBytes.'кб';
+            }
+        }
+        return $renderedValue;
+    }
+
+    protected function getKBytes($bytes)
+    {
+        return round(intval($bytes)/1024, 0);
+    }
+
+    protected function getMBytes($bytes)
+    {
+        return round(intval($bytes)/1024/1024, 2);
+    }
+
+
+
 }

@@ -79,7 +79,18 @@
       </resources>
    </global>
    <default></default>
-   <crontab></crontab>
+   <crontab>
+      <jobs>
+         <startDownloadProductImages>
+            <schedule>
+               <cron_expr>*/5 * * * *</cron_expr>
+            </schedule>
+            <run>
+               <model>zhupanyn_imgloader/cron::startDownloadProductImages</model>
+            </run>
+         </startDownloadProductImages>
+      </jobs>
+   </crontab>
    <admin>
       <routers>
          <adminhtml>

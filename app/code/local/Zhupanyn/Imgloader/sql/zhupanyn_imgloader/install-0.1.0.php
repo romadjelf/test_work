@@ -53,7 +53,7 @@ $table = $installer->getConnection()->newTable($tableName)
         ),
         'Image Url'
     )
-    ->addColumn('img_size', Varien_Db_Ddl_Table::TYPE_SMALLINT, null,
+    ->addColumn('img_size', Varien_Db_Ddl_Table::TYPE_INTEGER, null,
         array(
             'unsigned' => true
         ),

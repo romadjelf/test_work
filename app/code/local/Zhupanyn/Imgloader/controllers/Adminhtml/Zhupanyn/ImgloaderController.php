@@ -178,7 +178,7 @@ class Zhupanyn_Imgloader_Adminhtml_Zhupanyn_ImgloaderController extends Mage_Adm
                 $product->save();
             } catch (Exception $e) {
                 $item->setStatus($helper::ERROR);
-                $item->setErrorText($e->getMessage().' Шлях до картинки в темп: '.$path);
+                $item->setErrorText($e->getMessage());
                 $item->save();
             }
         }
