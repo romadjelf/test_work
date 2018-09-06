@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <default>
-        <reference name="right.reports.product.viewed">
-            <action method="setTemplate"><t>zhupanyn/localstorage/viewed.phtml</t></action>
+        <reference name="right">
+            <action method="unsetChild"><name>right.reports.product.viewed</name></action>
+            <block type="zhupanyn_localstorage/product_viewed" before="right.permanent.callout" name="zh.localstorage.product.viewed" template="zhupanyn/localstorage/viewed.phtml" />
         </reference>
         <reference name="head">
             <action method="addJs"><script>zhupanyn/localstorage/main.js</script></action>
@@ -10,8 +11,8 @@
     </default>
 
     <catalog_category_layered_nochildren>
-        <reference name="left.reports.product.viewed">
-            <action method="setTemplate"><t>zhupanyn/localstorage/viewed.phtml</t></action>
+        <reference name="right">
+            <action method="unsetChild"><name>left.reports.product.viewed</name></action>
         </reference>
     </catalog_category_layered_nochildren>
 

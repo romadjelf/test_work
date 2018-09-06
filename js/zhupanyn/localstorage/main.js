@@ -4,7 +4,7 @@ function Localstorage() {
     this.pageSize = null;
     this.time = null;
     this.domain = null;
-}
+};
 
 Localstorage.prototype.getJsonStorage = function () {
 
@@ -19,6 +19,11 @@ Localstorage.prototype.setJsonStorage = function (storage) {
 
     var jsonStr = JSON.stringify(storage);
     localStorage.setItem("zhupanyn_localstorage_product_viewed", jsonStr);
+};
+
+Localstorage.prototype.deleteJsonStorage = function () {
+
+    localStorage.removeItem("zhupanyn_localstorage_product_viewed");
 };
 
 Localstorage.prototype.prepareStorageObject = function (products, endTime) {
@@ -77,7 +82,7 @@ Localstorage.prototype.currentStorage = function (url) {
             ZhupanynLocalstorage.doAfterAjax(storage, false);
         }
 
-    } else {
+    } else if (cookie == 1) {
 
         $j.ajax({
             url: url,
@@ -87,18 +92,16 @@ Localstorage.prototype.currentStorage = function (url) {
         }).done(function (data) {
 
             storage = ZhupanynLocalstorage.prepareStorageObject( data, ZhupanynLocalstorage.getExpireTime() );
-
-            //Mage.Cookies.clear('user_login');
-            var erase = new Date();
-            erase.setDate(erase.getDate() - 1);
-            document.cookie = "user_login=0; expires=" + erase.toUTCString() + "; path=/; domain=" + ZhupanynLocalstorage.domain;
-
+            ZhupanynLocalstorage.clearUserLoginCookie();
             ZhupanynLocalstorage.doAfterAjax(storage, true);
 
         }).fail(function () {
 
         });
 
+    } else {
+        this.clearUserLoginCookie();
+        this.deleteJsonStorage();
     }
 };
 
@@ -108,7 +111,7 @@ Localstorage.prototype.getExpireTime = function () {
     expire.setHours(expire.getHours() + parseInt(this.time,10));
     return expire.getTime();
 
-}
+};
 
 Localstorage.prototype.doAfterAjax = function (storage, needSaveStorage) {
 
@@ -159,7 +162,15 @@ Localstorage.prototype.renderProducts = function (productArray) {
         var nameP = $j('<p/>').addClass('product-name').appendTo(nameDiv);
         var nameLink = $j('<a/>').prop('href', productArray[i].product_url).text(productArray[i].product_name).appendTo(nameP);
     }
-}
+};
+
+Localstorage.prototype.clearUserLoginCookie = function () {
+
+    var erase = new Date();
+    erase.setDate(erase.getDate() - 1);
+    document.cookie = "user_login=0; expires=" + erase.toUTCString() + "; path=/; domain=" + this.domain;
+
+};
 
 var ZhupanynLocalstorage = new Localstorage();
 
