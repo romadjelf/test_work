@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
     <modules>
-        <Zhupanyn_Localstorage>
+        <Zhupanyn_Imgloader>
             <active>false</active>
             <codePool>local</codePool>
-        </Zhupanyn_Localstorage>
+        </Zhupanyn_Imgloader>
     </modules>
 </config>

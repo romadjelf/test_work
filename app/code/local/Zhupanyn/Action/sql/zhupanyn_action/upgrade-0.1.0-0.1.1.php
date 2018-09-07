@@ -11,7 +11,7 @@ $tableName = $installer->getTable('zhupanyn_action/action');
 $installer->getConnection()
    ->addColumn($tableName,'status',
       array(
-         'type' => Varien_Db_Ddl_Table::TYPE_SMALLINT,
+         'type' => Varien_Db_Ddl_Table::TYPE_TINYINT,
          'nullable' => false,
          'default' => 1,
          'comment' => 'Status: 1 - час дії ще ненаступив, 2 - акція діє, 3 - акція закрита')

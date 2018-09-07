@@ -14,7 +14,7 @@ class Zhupanyn_Action_Block_Adminhtml_Action_Edit_Form extends Mage_Adminhtml_Bl
       $helper = Mage::helper('zhupanyn_action');
       $model = Mage::registry('current_action');
       $form = new Varien_Data_Form(array(
-         'id' => 'zh_edit_form',
+         'id' => 'edit_form',
          'action' => $this->getUrl('*/*/save', array(
             'id' => $this->getRequest()->getParam('id')
          )),
@@ -22,23 +22,26 @@ class Zhupanyn_Action_Block_Adminhtml_Action_Edit_Form extends Mage_Adminhtml_Bl
          'enctype' => 'multipart/form-data'
       ));
 
-      $model->create_datetime = Mage::getModel('core/date')->date(null,$model->create_datetime);
-      $model->start_datetime = Mage::getModel('core/date')->date(null,$model->start_datetime);
-      $model->end_datetime = Mage::getModel('core/date')->date(null,$model->end_datetime);
+      $dateFormatIso = Mage::app()->getLocale()->getDateTimeFormat(
+         Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+      );
+      $model->create_datetime = $helper->getDatetime($model->create_datetime, $dateFormatIso, 'Буде додана після створення');
+      $model->start_datetime = $helper->getDatetime($model->start_datetime);
+      $model->end_datetime = $helper->getDatetime($model->end_datetime);
       $model->status = $helper->getStatusArray()[$model->status];
+      $model->image = $helper->getImage($model->image);
 
       $form->setHtmlIdPrefix('zh_');
 
-      //$this->setForm($form);
       $fieldset = $form->addFieldset('action_form', array(
          'legend' => $helper->__('Інформація про акцію')
       ));
 
       $fieldset->addField('name', 'text', array(
          'label'     => $helper->__('Ім\'я'),
-         'class'     => 'required-entry',
+         //'class'     => 'required-entry',
          'required'  => true,
-         'name'      => 'title',
+         'name'      => 'name',
          //'onclick' => "alert('on click');",
          //'onchange' => "alert('on change');",
          //'style'   => "border:10px",
@@ -52,7 +55,7 @@ class Zhupanyn_Action_Block_Adminhtml_Action_Edit_Form extends Mage_Adminhtml_Bl
          'label'     => $helper->__('Активний'),
          'class'     => 'required-entry',
          'required'  => true,
-         'name'      => 'title',
+         'name'      => 'is_active',
          //'onclick' => "",
          //'onchange' => "",
          //'value'  => $model->getIsActive(),
@@ -65,9 +68,9 @@ class Zhupanyn_Action_Block_Adminhtml_Action_Edit_Form extends Mage_Adminhtml_Bl
 
       $fieldset->addField('description', 'textarea', array(
          'label'     => $helper->__('Опис'),
-         'class'     => 'required-entry',
+         'class'     => '', //'required-entry',
          'required'  => false,
-         'name'      => 'title',
+         'name'      => 'description',
          //'onclick' => "",
          //'onchange' => "",
          //'value'  => $model->getDescription(),
@@ -80,54 +83,53 @@ class Zhupanyn_Action_Block_Adminhtml_Action_Edit_Form extends Mage_Adminhtml_Bl
 
       $fieldset->addField('short_description', 'textarea', array(
          'label'     => $helper->__('Короткий опис'),
-         'class'     => 'required-entry',
+         'class'     => '', //'required-entry',
          'required'  => false,
          'name'      => 'short_description',
          //'onclick' => "",
          //'onchange' => "",
          //'value'  => "",
-         'disabled'  => true,
+         'disabled'  => false,
          //'readonly' => false,
          'after_element_html' => '<small>Короткий опис акції</small>',
          'tabindex'  => 4,
          'style'     => 'height:5em;'
       ));
 
-      $dateFormatIso = Mage::app()->getLocale()->getDateFormat(
-         Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
-      );
-      $dateFormatIso = Mage::app()->getLocale()->getDateTimeFormat(
-         Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
-      );
-
-      $fieldset->addField('create_datetime', 'date', array(
-         'name'      => 'create_datetime',
-         'label'     => $helper->__('Дата створення'),
-         'image'     => $this->getSkinUrl('images/grid-cal.gif'),
-         'format'    => $dateFormatIso,
-         //'disabled'  => $isElementDisabled,
-         'class'     => 'validate-date validate-date-range date-range-custom_theme-from',
-         'tabindex'  => 5
+      $fieldset->addField('create_datetime', 'label', array(
+         'label'  => $helper->__('Дата створення'),
+         'value'  => $helper->getStatusArray(),
+         'bold'   => true,
+         'note'   => 'Створена дата не змінюється'
       ));
 
-      $fieldset->addField('start_datetime', 'time', array(
+      $fieldset->addField('start_datetime', 'datetime', array(
          'name'      => 'start_datetime',
          'label'     => $helper->__('Дата початку акції'),
+         'required'  => true,
          'image'     => $this->getSkinUrl('images/grid-cal.gif'),
          'format'    => $dateFormatIso,
          //'disabled'  => $isElementDisabled,
          //'class'     => 'validate-date validate-date-range date-range-custom_theme-from',
-         'tabindex'  => 6
+         'tabindex'  => 6,
+         'time'      => true
       ));
 
-      $fieldset->addField('end_datetime', 'time', array(
+      $fieldset->addField('end_datetime', 'datetime', array(
          'name'      => 'end_datetime',
-         'label'     => $helper->__('Дата початку акції'),
+         'label'     => $helper->__('Дата кінця акції'),
+         'required'  => true,
          'image'     => $this->getSkinUrl('images/grid-cal.gif'),
          'format'    => $dateFormatIso,
          //'disabled'  => $isElementDisabled,
          //'class'     => 'validate-date validate-date-range date-range-custom_theme-from',
-         'tabindex'  => 7
+         'tabindex'  => 7,
+         'time'      => true
+      ));
+
+      $fieldset->addField('image', 'image', array(
+         'label' => $helper->__('Image'),
+         'name' => 'image',
       ));
 
       $fieldset->addField('status', 'label', array(

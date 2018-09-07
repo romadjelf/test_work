@@ -27,7 +27,7 @@
                 <observers>
                     <add_cookie_customer_login>
                         <class>zhupanyn_localstorage/observer</class>
-                        <method>add_cookie_customer_login</method>
+                        <method>addCookieCustomerLogin</method>
                         <type>model</type>
                     </add_cookie_customer_login>
                 </observers>
@@ -36,7 +36,7 @@
                 <observers>
                     <add_cookie_customer_logout>
                         <class>zhupanyn_localstorage/observer</class>
-                        <method>add_cookie_customer_logout</method>
+                        <method>addCookieCustomerLogout</method>
                         <type>model</type>
                     </add_cookie_customer_logout>
                 </observers>

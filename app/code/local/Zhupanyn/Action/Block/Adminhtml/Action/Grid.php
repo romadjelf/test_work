@@ -6,7 +6,7 @@ class Zhupanyn_Action_Block_Adminhtml_Action_Grid extends Mage_Adminhtml_Block_W
       parent::__construct();
       $this->setEmptyText('Нет записей');
       $this->setId('zhupanyn_action_table');
-      $this->setDefaultLimit(4);
+      $this->setDefaultLimit(10);
       $this->setDefaultSort('id');
       $this->setDefaultDir('DESC');
 //      $this->setSaveParametersInSession(true);
@@ -16,7 +16,7 @@ class Zhupanyn_Action_Block_Adminhtml_Action_Grid extends Mage_Adminhtml_Block_W
    protected function _prepareCollection()
    {
       $collection = Mage::getModel('zhupanyn_action/action')->getCollection();
-      $collection->setPageSize(4);
+      $collection->setPageSize(5);
       $this->setCollection($collection);
       return parent::_prepareCollection();
    }

@@ -1,6 +1,5 @@
 <?php
 /* @var $this Mage_Reports_Block_Product_Viewed */
-$tttt = 1;
 ?>
 <div id="recently-viewed-wrapper" class="block block-list block-viewed" style="display: none;" >
     <div class="block-title">
@@ -15,16 +14,14 @@ $tttt = 1;
 
 <script type="text/javascript">
 
-    var zh_ls_url_ajax = '<?=$this->getUrl('zhupanyn_localstorage/ajax/products')?>';
+    var localstorageUrlAjax = '<?=$this->getUrl('zhupanyn_localstorage/ajax/products')?>';
 
     $j(function(){
 
-        zhupanyn_localstorage.time = '<?=$this->helper('zhupanyn_localstorage')->getTime()?>';
-        zhupanyn_localstorage.domain = '<?=$this->helper('zhupanyn_localstorage')->getDomain()?>';
-
+        ZhupanynLocalstorage.time = '<?=$this->helper('zhupanyn_localstorage')->getTime()?>';
+        ZhupanynLocalstorage.domain = '<?=$this->helper('zhupanyn_localstorage')->getDomain()?>';
         //localStorage.removeItem("zhupanyn_localstorage_product_viewed");
-        var storage =  zhupanyn_localstorage.getJsonStorage();
-        zhupanyn_localstorage.currentStorage(storage, zh_ls_url_ajax);
+        ZhupanynLocalstorage.currentStorage(localstorageUrlAjax);
 
     })
 

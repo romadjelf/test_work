@@ -8,6 +8,17 @@
     </reference>
   </default>-->
 
+   <!--<default> ЗАМЕНА ТЕМПЛЕЙТА БЛОКА
+      <reference name="right.reports.product.viewed">
+         <action method="setTemplate"><t>zhupanyn/action/title.phtml</t></action>
+      </reference>
+   </default>
+   <catalog_category_layered_nochildren>
+      <reference name="left.reports.product.viewed">
+         <action method="setTemplate"><t>zhupanyn/action/simple.phtml</t></action>
+      </reference>
+   </catalog_category_layered_nochildren>-->
+
   <zhupanyn_action_index_index translate="label">
      <label>Siple</label>
      <reference name="content">
