@@ -17,9 +17,6 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
         $this->setDefaultDir('DESC');
         $this->setSkipGenerateContent(true);
         $this->setUseAjax(true);
-        /*if ($this->_getProduct()->getId()) {
-            $this->setDefaultFilter(array('sku'=>$this->_getProduct()->getSku()));
-        }*/
     }
 
     public function getTabLabel()
@@ -62,28 +59,6 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
         return Mage::registry('current_product');
     }
 
-    /*protected function _addColumnFilterToCollection($column)
-    {
-        // Set custom filter for in product flag
-        if ($column->getId() == 'in_products') {
-            $productIds = $this->_getSelectedProducts();
-            if (empty($productIds)) {
-                $productIds = 0;
-            }
-            if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$productIds));
-            }
-            else {
-                $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$productIds));
-            }
-        }
-        else {
-            parent::_addColumnFilterToCollection($column);
-        }
-
-        return $this;
-    }*/
-
     protected function _prepareCollection()
     {
         /* @var $collection Mage_Core_Model_Resource_Db_Collection_Abstract*/
@@ -103,19 +78,11 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
             'index'     => 'id'
         ));
 
-        /*$this->addColumn('sku', array(
-            'header' => $helper->__('Sku'),
-            'align'  => 'left',
-            'type'   => 'text',
-            'index'  => 'sku'
-        ));*/
-
         $this->addColumn('create_datetime', array(
             'header' => $helper->__('Create Datetime'),
             'index'  => 'create_datetime',
             'type'   => 'datetime',
-            'filter_time' => true,
-            //'width' => '150px'
+            'filter_time' => true
         ));
 
         $this->addColumn('update_datetime', array(
@@ -195,7 +162,4 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
     {
         return round(intval($bytes)/1024/1024, 2);
     }
-
-
-
 }

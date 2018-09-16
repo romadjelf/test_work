@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: roman
- * Date: 31.08.18
- * Time: 15:44
- */
 
 class Zhupanyn_Imgloader_Model_Cron
 {
@@ -17,7 +11,6 @@ class Zhupanyn_Imgloader_Model_Cron
         $collection = Mage::getModel('zhupanyn_imgloader/list')->getCollection();
         $collection->addFieldToFilter('status', array('eq' => '1'));
         $collection->getSelect()->orWhere("status=2 and update_datetime < DATE_SUB('".$helper->getGmtDate()."', INTERVAL 1 DAY)");
-        //$collection->getSelect()->limit(1);
 
         foreach ($collection as $item) {
             $sku = $item->getSku();

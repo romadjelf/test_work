@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: roman
- * Date: 29.08.18
- * Time: 13:32
- */
+
 class Zhupanyn_Imgloader_Block_Adminhtml_Button extends Mage_Core_Block_Abstract
 {
     protected function _prepareLayout()
@@ -21,8 +16,7 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Button extends Mage_Core_Block_Abstract
             $url = Mage::helper('adminhtml')->getUrl('adminhtml/zhupanyn_imgloader/index');
             $productsList->addButton('zh_index', array(
                 'label'     => $this->helper('zhupanyn_imgloader')->__('Index'),
-                'onclick'   => "setLocation('{$url}')",
-                //'class'     => 'add'
+                'onclick'   => "setLocation('{$url}')"
             ));
         }
     }

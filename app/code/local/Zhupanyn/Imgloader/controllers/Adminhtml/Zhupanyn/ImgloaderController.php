@@ -100,37 +100,13 @@ class Zhupanyn_Imgloader_Adminhtml_Zhupanyn_ImgloaderController extends Mage_Adm
 
     public function indexAction()
     {
-        /* @var $productsCollection Mage_Core_Model_Resource_Db_Collection_Abstract */
-        /*$storeId = Mage::app()->getStore()->getId();
-        $productsCollection = Mage::getModel('catalog/product')->getCollection()
-            ->addAttributeToSelect('image','small_image','media_gallery')
-            ->addStoreFilter($storeId)
-            ->addAttributeToFilter('image',array("notnull" => true ))
-            ->addAttributeToFilter('small_image',array("notnull" => true ))
-            ->addAttributeToFilter('media_gallery',array("notnull" => true ))
-            //->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
-            //->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
-            //->addFieldToFilter('entity_id',905);
-            //->addAttributeToSort('created_at', 'DESC')
-            ->setPageSize(3);
-        $str = $productsCollection->getSelect()->__toString();
-        echo $str;
-        var_dump($productsCollection->getData());
-
-        $model_prod = Mage::getModel('catalog/product')->load(905);
-        var_dump($model_prod->getData('media_gallery'));
-        */
-
         /* @var $helper Zhupanyn_Imgloader_Helper_Data*/
         $helper = Mage::helper('zhupanyn_imgloader');
 
         /* @var $collection Mage_Core_Model_Resource_Db_Collection_Abstract*/
-        $collection = Mage::getModel('zhupanyn_imgloader/list')->getCollection();
+        /*$collection = Mage::getModel('zhupanyn_imgloader/list')->getCollection();
         $collection->addFieldToFilter('status', array('eq' => '1'));
         $collection->getSelect()->orWhere("status=2 and update_datetime < DATE_SUB('".$helper->getGmtDate()."', INTERVAL 1 DAY)");
-        //$collection->getSelect()->limit(1);
-        //echo  $str = $collection->getSelect()->__toString();
-        //var_dump($collection->getData());
 
         foreach ($collection as $item) {
             $sku = $item->getSku();
@@ -182,7 +158,7 @@ class Zhupanyn_Imgloader_Adminhtml_Zhupanyn_ImgloaderController extends Mage_Adm
                 $item->save();
             }
         }
-        var_dump($collection->getData());
+        var_dump($collection->getData());*/
     }
 
     public function newAction()
@@ -195,11 +171,14 @@ class Zhupanyn_Imgloader_Adminhtml_Zhupanyn_ImgloaderController extends Mage_Adm
     public function saveAction()
     {
         try {
-
             $helper = Mage::helper('zhupanyn_imgloader');
+            $model = Mage::getModel('zhupanyn_imgloader/list');
 
             $file = $_FILES['file'];
-            if ($file['size'] > 0) {
+            $model->setImageLinkArray($file);
+            $model->saveImageLinks();
+
+            /*if ($file['size'] > 0) {
                 if (file_exists($file['tmp_name'])) {
                     $imageLinkArray = [];
                     $handle = fopen($file['tmp_name'], "r");
@@ -214,20 +193,17 @@ class Zhupanyn_Imgloader_Adminhtml_Zhupanyn_ImgloaderController extends Mage_Adm
 
                     $prepareInsertArray = [];
                     foreach ($imageLinkArray as $value) {
-
                         if (is_null($value[0])){
                             continue;
                         }
                         $prepareInsertArray[] = array(
                             'sku'               =>  $value[0],
                             'create_datetime'   =>  $helper->getGmtDate(),
-                            'img_url'           =>  $value[1],
-                            //'status'            =>  rand(1,4)
+                            'img_url'           =>  $value[1]
                         );
                     }
 
                     if ( count($prepareInsertArray) > 0 ){
-                        /* @var $model Zhupanyn_Imgloader_Model_List */
                         $model = Mage::getModel('zhupanyn_imgloader/list');
                         $model->insertMultiple($prepareInsertArray);
                     } else {
@@ -239,9 +215,9 @@ class Zhupanyn_Imgloader_Adminhtml_Zhupanyn_ImgloaderController extends Mage_Adm
                 }
             } else {
                 Mage::throwException($helper->__('Додайте файл в форматі CSV!'));
-            }
+            }*/
 
-            $this->_getSession()->addSuccess($helper->__('Список картинок добавлений успішно!'));
+            $this->_getSession()->addSuccess($helper->__('The list of pictures is added successfully!'));
             $this->_redirect('*/*/new');
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: roman
- * Date: 29.08.18
- * Time: 14:59
- */
 
 class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
