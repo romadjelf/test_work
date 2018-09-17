@@ -172,10 +172,11 @@ class Zhupanyn_Imgloader_Adminhtml_Zhupanyn_ImgloaderController extends Mage_Adm
     {
         try {
             $helper = Mage::helper('zhupanyn_imgloader');
-            $model = Mage::getModel('zhupanyn_imgloader/list');
-
             $file = $_FILES['file'];
-            $model->setImageLinkArray($file);
+
+            /* @var $model Zhupanyn_Imgloader_Model_List*/
+            $model = Mage::getModel('zhupanyn_imgloader/list');
+            $model->setFileCsv($file);
             $model->saveImageLinks();
 
             /*if ($file['size'] > 0) {
