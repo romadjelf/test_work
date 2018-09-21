@@ -1,25 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: roman
- * Date: 27.08.18
- * Time: 16:24
- */
 
 $installer = $this;
 $installer->startSetup();
 
 $tableName = $installer->getTable('zhupanyn_imgloader/list');
 
-/*$indexName = $installer->getConnection()->getIndexName(
-    $tableName,
-    array('url_path'),
-    Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-);*/
-$installer->getConnection()->dropTable($tableName);
-
-// addColumn функция Varien_Db_Ddl_Table
-//$a = new Varien_Db_Ddl_Table(); $a->addColumn();
+//$installer->getConnection()->dropTable($tableName);
 
 $table = $installer->getConnection()->newTable($tableName)
     ->addColumn('id', Varien_Db_Ddl_Table::TYPE_INTEGER, null,
@@ -72,16 +58,6 @@ $table = $installer->getConnection()->newTable($tableName)
         'Error Text'
     );
 
-/*$table->addIndex(
-    $indexName,
-    array('url_path'),
-    array(
-        'type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-    )
-);*/
-
 $installer->getConnection()->createTable($table);
-
-//$installer->run("");
 
 $installer->endSetup();

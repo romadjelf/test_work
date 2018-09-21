@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: roman
- * Date: 28.08.18
- * Time: 12:06
- */
 
 class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Adminhtml_Block_Widget_Grid implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -21,12 +15,12 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
 
     public function getTabLabel()
     {
-        return $this->helper('zhupanyn_imgloader')->__('Импорт изображений');
+        return $this->helper('zhupanyn_imgloader')->__('Images import');
     }
 
     public function getTabTitle()
     {
-        return $this->helper('zhupanyn_imgloader')->__('Таблица с статусами загрузки картинок');
+        return $this->helper('zhupanyn_imgloader')->__('Table with image loading statuses');
     }
 
     public function canShowTab()
@@ -100,7 +94,6 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
             'lineLength' => 40
         ));
 
-
         $this->addColumn('img_size', array(
             'header' => $helper->__('Image Size'),
             'align'  => 'center',
@@ -114,7 +107,7 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
             'align'  => 'center',
             'type'   => 'options',
             'index'  => 'status',
-            'options'=> $helper->getStatusArray()
+            'options'=> Zhupanyn_Imgloader_Model_List::getStatusArray()
         ));
 
         $this->addColumn('error_text', array(
@@ -138,6 +131,15 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
             ? $this->_getData('grid_url') : $this->getUrl('adminhtml/zhupanyn_imgloader/listgrid', array('_current'=>true));
     }
 
+    /**
+     * Вывод размера картинки в МБ или КБ
+     *
+     * @param string $renderedValue
+     * @param Varien_Object $row
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param boolean $isExport
+     * @return string
+     */
     public function renderImgSize($renderedValue, $row, $column, $isExport)
     {
         $bytes = $row->getImgSize();
@@ -153,11 +155,23 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Tab_List extends Mage_Ad
         return $renderedValue;
     }
 
+    /**
+     * Получить КБ из байтов
+     *
+     * @param integer $bytes
+     * @return integer
+     */
     protected function getKBytes($bytes)
     {
         return round(intval($bytes)/1024, 0);
     }
 
+    /**
+     * Получить Мб из байтов
+     *
+     * @param integer $bytes
+     * @return float
+     */
     protected function getMBytes($bytes)
     {
         return round(intval($bytes)/1024/1024, 2);

@@ -29,7 +29,7 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Imgloader_Edit_Form extends Mage_Adminh
             'value'     => 'Uplaod',
             'disabled'  => false,
             'readonly'  => true,
-            'after_element_html' => '<small>add file with image list in csv format</small>',
+            'after_element_html' => '<small>'.$helper->__('Add file with image list in csv format').'</small>',
             'tabindex'  => 1,
             'name'      => 'file'
         ));

@@ -8,7 +8,7 @@ class Zhupanyn_Imgloader_Block_Adminhtml_Button extends Mage_Core_Block_Abstract
         if ( $productsList ) {
             $url = Mage::helper('adminhtml')->getUrl('adminhtml/zhupanyn_imgloader/new');
             $productsList->addButton('zh_import', array(
-                'label'     => $this->helper('zhupanyn_imgloader')->__('Импорт изображений'),
+                'label'     => $this->helper('zhupanyn_imgloader')->__('Images import'),
                 'onclick'   => "setLocation('{$url}')",
                 'class'     => 'add'
             ));
