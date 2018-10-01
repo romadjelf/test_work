@@ -23,15 +23,15 @@
          </updates>
       </layout>
       <events>
-         <!--<page_block_html_topmenu_gethtml_before>
+         <!--<catalog_product_validate_after>
             <observers>
-              <add_menu_node>
-                 <class>zhupanyn_action/observer</class>
-                 <method>add_menu_node</method>
-                 <type>model</type>
-              </add_menu_node>
+               <validate_youtube_attribute>
+                  <class>zhupanyn_youtube/observer</class>
+                  <method>validateYoutubeAttribute</method>
+                  <type>model</type>
+               </validate_youtube_attribute>
             </observers>
-         </page_block_html_topmenu_gethtml_before>-->
+         </catalog_product_validate_after>-->
       </events>
       <translate></translate>
    </frontend>
@@ -43,58 +43,63 @@
             </zhupanyn_action>-->
          </updates>
       </layout>
+      <events>
+         <catalog_product_validate_after>
+            <observers>
+               <validate_youtube_attribute>
+                  <class>zhupanyn_youtube/observer</class>
+                  <method>validateYoutubeAttribute</method>
+                  <type>model</type>
+               </validate_youtube_attribute>
+            </observers>
+         </catalog_product_validate_after>
+      </events>
    </adminhtml>
    <global>
       <blocks>
-         <zhupanyn_action>
+         <!--<zhupanyn_action>
             <class>Zhupanyn_Action_Block</class>
-         </zhupanyn_action>
+         </zhupanyn_action>-->
       </blocks>
       <models>
-         <zhupanyn_action>
-             <class>Zhupanyn_Action_Model</class>
-             <resourceModel>zhupanyn_action_resource</resourceModel>
-         </zhupanyn_action>
-         <zhupanyn_action_resource>
-            <class>Zhupanyn_Action_Model_Resource</class>
+         <zhupanyn_youtube>
+             <class>Zhupanyn_Youtube_Model</class>
+             <resourceModel>zhupanyn_youtube_resource</resourceModel>
+         </zhupanyn_youtube>
+         <zhupanyn_youtube_resource>
+            <class>Zhupanyn_Youtube_Model_Resource</class>
             <entities>
-               <action>
-                  <table>zhupanyn_action</table>
-               </action>
-               <action_product>
-                  <table>zhupanyn_action_product</table>
-               </action_product>
-               <test>
-                  <table>zhupanyn_test</table>
-               </test>
+               <youtube>
+                  <table>zhupanyn_youtube</table>
+               </youtube>
             </entities>
-         </zhupanyn_action_resource>
+         </zhupanyn_youtube_resource>
       </models>
       <helpers>
-         <zhupanyn_action>
-            <class>Zhupanyn_Action_Helper</class>
-         </zhupanyn_action>
+         <zhupanyn_youtube>
+            <class>Zhupanyn_Youtube_Helper</class>
+         </zhupanyn_youtube>
       </helpers>
       <resources>
-         <zhupanyn_action>
+         <zhupanyn_youtube>
             <setup>
-               <module>Zhupanyn_Action</module>
-               <class>Zhupanyn_Action_Model_Resource_Setup</class>
+               <module>Zhupanyn_Youtube</module>
+               <class>Zhupanyn_Youtube_Model_Resource_Setup</class>
             </setup>
-         </zhupanyn_action>
+         </zhupanyn_youtube>
       </resources>
    </global>
    <default></default>
    <crontab></crontab>
    <admin>
       <routers>
-         <adminhtml>
+         <!--<adminhtml>
             <args>
                <modules>
                   <zhupanyn_action after="Mage_Adminhtml">Zhupanyn_Action_Adminhtml</zhupanyn_action>
                </modules>
             </args>
-         </adminhtml>
+         </adminhtml>-->
       </routers>
    </admin>
 </config>
