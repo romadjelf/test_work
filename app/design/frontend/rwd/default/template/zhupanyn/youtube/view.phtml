@@ -1,0 +1,39 @@
+
+<?php
+/**
+* @var $this Zhupanyn_Youtube_Block_Youtube
+*/
+?>
+<?php
+    $youtubeData = $this->getYoutubeData();
+?>
+<?php if ($youtubeData): ?>
+    <div style="width: 100%;">
+        <div id="<?=Zhupanyn_Youtube_Block_Youtube::PLAYER_ID?>" style="float: left; margin: 0 20px 20px 0;"></div>
+        <img src="<?php echo $youtubeData['url_thumbnail']; ?>" style="float: left; margin: 0 20px 20px 0;">
+        <h1><?php echo $youtubeData['title']; ?></h1>
+        <h4><?php echo $youtubeData['published_at']; ?></h4>
+        <div><?php echo $youtubeData['description']; ?></div>
+    </div>
+
+    <script type="text/javascript">
+
+        function onYouTubeIframeAPIReady() {
+            ZhupanynYoutube.getPlayer('<?=$youtubeData['id_youtube']?>', '<?=Zhupanyn_Youtube_Block_Youtube::PLAYER_ID?>');
+        }
+
+        $j(function(){
+
+            $j('.toggle-tabs > li').on('click', function(){
+                var text = $j(this).find('span').html();
+                if (text == 'Youtube') {
+                    ZhupanynYoutube.playVideo();
+                } else {
+                    ZhupanynYoutube.pauseVideo();
+                }
+            })
+
+        })
+
+    </script>
+<?php endif; ?>

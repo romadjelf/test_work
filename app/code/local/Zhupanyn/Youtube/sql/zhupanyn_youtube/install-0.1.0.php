@@ -1,32 +1,34 @@
 <?php
 
-/* @var $installer Zhupanyn_Youtube_Model_Resource_Setup*/
+/* @var $installer Zhupanyn_Youtube_Model_Resource_Setup */
 $installer = $this;
 
 $installer->startSetup();
 
 $tableName = $installer->getTable('zhupanyn_youtube/youtube');
+$refProductTable = $installer->getTable('catalog/product');
 
 // Генеруємо назву індексу
-/*$indexName = $installer->getConnection()->getIndexName(
+$indexName = $installer->getConnection()->getIndexName(
     $tableName,
-    array('url_path'),
+    array('id_product'),
     Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
-);*/
+);
 
 $installer->getConnection()->dropTable($tableName);
 
-// Створюємо обе"єкт таблиці.
-// addColumn функция Varien_Db_Ddl_Table
-//$a = new Varien_Db_Ddl_Table();
-
 $table = $installer->getConnection()->newTable($tableName)
-   ->addColumn('id_product',Varien_Db_Ddl_Table::TYPE_INTEGER,null,
-      array(
-         'unsigned' => true,
-         'nullable' => false,
-         'primary' => true),
-      'ID of Product')
+    ->addColumn('id', Varien_Db_Ddl_Table::TYPE_INTEGER, null,
+        array(
+            'unsigned' => true,
+            'nullable' => false,
+            'primary' => true,
+            'auto_increment' => true), null)
+    ->addColumn('id_product', Varien_Db_Ddl_Table::TYPE_INTEGER, null,
+        array(
+            'unsigned' => true,
+            'nullable' => false),
+        'ID of Product')
     ->addColumn('id_youtube', Varien_Db_Ddl_Table::TYPE_TEXT, 64,
         array(
             'nullable' => false),
@@ -42,26 +44,28 @@ $table = $installer->getConnection()->newTable($tableName)
         array(
             'nullable' => false),
         'Url Thumbnail')
-    ->addColumn('publishedAt', Varien_Db_Ddl_Table::TYPE_DATETIME, null,
+    ->addColumn('published_at', Varien_Db_Ddl_Table::TYPE_DATETIME, null,
         array(
             'nullable' => false),
-        'Published At');
+        'Published At')
+    ->addForeignKey('FK_ZHUPANYN_YOUTUBE_YOUTUBE_CATALOG_PRODUCT', 'id_product', $refProductTable, 'entity_id', Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE);
 
 // Додаємо індекс
-/*$table->addIndex(
+$table->addIndex(
     $indexName,
-    array('url_path'),
+    array('id_product'),
     array(
         'type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE
     )
-);*/
+);
 
 $installer->getConnection()->createTable($table);
 
 $installer->catalogSetup()->addAttribute(Mage_Catalog_Model_Product::ENTITY, 'youtube_video', array(
-    'label'             => 'Youtube Video',
-    'note'              => $installer->getHelper()->__('Enter a link to YouTube video'),
-    'frontend_class'    => 'validate-url'
+    'label' => 'Youtube Video',
+    'note' => $installer->getHelper()->__('Enter a link to YouTube video'),
+    'frontend_class' => 'validate-url',
+    'required' => 0,
 ));
 
 $installer->endSetup();

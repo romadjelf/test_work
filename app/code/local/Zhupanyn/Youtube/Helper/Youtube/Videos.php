@@ -75,6 +75,11 @@ class Zhupanyn_Youtube_Helper_YouTube_Videos extends Mage_Core_Helper_Abstract
      * Получение данных по одному или несколько видео в ассоциативном масиве
      * с id_youtube в виде ключа
      *
+     * Пример:
+     * $youtube = Mage::helper('zhupanyn_youtube/youtube_videos');
+     * $videoDataFromIds = $youtube->getVideoDataById('efRm7fW9hL4,ojJJaB-SqEs',
+     * [Zhupanyn_Youtube_Helper_YouTube_Videos::PART_STATISTICS] );
+     *
      * @param string $ids  один или несколько id_youtube через запятую
      * @param array $part  массив значений из констант PART_...
      * @return array
@@ -92,6 +97,12 @@ class Zhupanyn_Youtube_Helper_YouTube_Videos extends Mage_Core_Helper_Abstract
      * Получение данных по одному видео в ассоциативном масиве
      * с id_youtube в виде ключа
      *
+     * Пример:
+     * $youtube = Mage::helper('zhupanyn_youtube/youtube_videos');
+     * $url = 'https://www.youtube.com/watch?v=efRm7fW9hL4&start_radio=1&list=RDefRm7fW9hL4';
+     * $videoDataFromUrl = $youtube->getVideoDataByUrl($url,
+     * [Zhupanyn_Youtube_Helper_YouTube_Videos::PART_STATISTICS]);
+     *
      * @param string $url  ссылка видео с ютуба
      * @param array $part  массив значений из констант PART_...
      * @return array
@@ -108,6 +119,15 @@ class Zhupanyn_Youtube_Helper_YouTube_Videos extends Mage_Core_Helper_Abstract
     /**
      * Получение данных о видео в ассоциативном масиве с id_product и youtube_data
      * в виде ключей
+     *
+     * Пример:
+     * $youtube = Mage::helper('zhupanyn_youtube/youtube_videos');
+     * $arrayProd = [
+     *      ['id_product'=>5, 'youtube_link'=>'https://www.youtube.com/watch?v=efRm7fW9hL4&start_radio=1&list=RDefRm7fW9hL4'],
+     *      ['id_product'=>10, 'youtube_link'=>'https://www.youtube.com/watch?v=ojJJaB-SqEs'],
+     * ];
+     * $videoDataFromProdArray = $youtube->getVideoDataByArray($arrayProd,
+     * [Zhupanyn_Youtube_Helper_YouTube_Videos::PART_STATISTICS]);
      *
      * @param string $arrayProductLinks  массив ассоциативных массивов
      * с ключасми id_product и youtube_link
@@ -243,7 +263,7 @@ class Zhupanyn_Youtube_Helper_YouTube_Videos extends Mage_Core_Helper_Abstract
             'title' => $snippet->getTitle(),
             'description' => $snippet->getDescription(),
             'url_thumbnail' => $snippet->getThumbnails()->getDefault()->getUrl(),
-            'publishedAt' => $snippet->getPublishedAt()
+            'published_at' => $snippet->getPublishedAt()
         ];
         return $data;
     }

@@ -1,33 +1,54 @@
 <?php
+
 class Zhupanyn_Youtube_Model_Observer
 {
     /**
+     * Сохранение данных о ютуб видео втаблице zhupanyn_youtube
+     * по ссылке на видео с товара
+     *
      * @param Varien_Event_Observer $observer
-     * @throws Mage_Core_Exception
+     * @throws Varien_Exception
      */
-    public function validateYoutubeAttribute(Varien_Event_Observer $observer)
+    public function saveYoutubeData(Varien_Event_Observer $observer)
     {
-        $product = $observer->getProduct();
-        $url = $product->getYoutubeVideo();
+        $id_product = $observer->getProduct()->getId();
+        $url        = $observer->getProduct()->getYoutubeVideo();
 
-        /* @var $youtube Zhupanyn_Youtube_Helper_YouTube_Videos*/
-        $youtube = Mage::helper('zhupanyn_youtube/youtube_videos');
+        /* @var $model Zhupanyn_Youtube_Model_Youtube*/
+        $model = Mage::getModel('zhupanyn_youtube/youtube');
+        $model->saveYoutubeData($url, $id_product);
+    }
 
-        /*//по url
-        $url = 'https://www.youtube.com/watch?v=efRm7fW9hL4&start_radio=1&list=RDefRm7fW9hL4';
-        $videoDataFromUrl = $youtube->getVideoDataByUrl($url, [Zhupanyn_Youtube_Helper_YouTube_Videos::PART_STATISTICS]);
+    /**
+     * Добавление блока ютуб и скрипта для загрузки видео в карточку товара
+     * если есть запись в таблице zhupanyn_youtube
+     *
+     * @param Varien_Event_Observer $observer
+     * @throws Varien_Exception
+     */
+    public function addBlockYoutubeVideo(Varien_Event_Observer $observer)
+    {
+        $layout = $observer->getLayout();
+        $catalog_prod_view = $layout->getBlock('product.info');
 
-        //по ids
-        $videoDataFromIds = $youtube->getVideoDataById('efRm7fW9hL4,ojJJaB-SqEs', [Zhupanyn_Youtube_Helper_YouTube_Videos::PART_STATISTICS] );*/
+        if ($catalog_prod_view){
+            /* @var $newBlock Zhupanyn_Youtube_Block_Youtube */
+            $newBlock = $layout->createBlock('zhupanyn_youtube/youtube', 'zhupanyn.youtube.youtube', ['template'=>'zhupanyn/youtube/view.phtml']);
+            $id_product = $newBlock->getProduct()->getId();
 
-        $arrayProd = [
-            ['id_product'=>5, 'youtube_link'=>'https://www.youtube.com/watch?v=efRm7fW9hL4&start_radio=1&list=RDefRm7fW9hL4'],
-            ['id_product'=>10, 'youtube_link'=>'https://www.youtube.com/watch?v=ojJJaB-SqEs'],
-        ];
-        $videoDataFromProdArray = $youtube->getVideoDataByArray($arrayProd, [Zhupanyn_Youtube_Helper_YouTube_Videos::PART_STATISTICS]);
+            /* @var $youtubeModel Zhupanyn_Youtube_Model_Youtube */
+            $youtubeModel = Mage::getModel('zhupanyn_youtube/youtube');
 
-        $x = 1;
+            if ($youtubeModel->isLoadYoutubeData($id_product)) {
 
-        Mage::throwException('Error youtube: '.$url);
+                $catalog_prod_view->append($newBlock);
+                $newBlock->addToParentGroup('detailed_info');
+                $newBlock->setTitle('Youtube');
+
+                /* @var $head Mage_Page_Block_Html_Head */
+                $head = $layout->getBlock('head');
+                $head->addJs('zhupanyn/youtube/main.js');
+            }
+        }
     }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <catalog_product_view>
+
+        <!--<reference name="product.info">
+            <block type="zhupanyn_youtube/youtube" name="zhupanyn.youtube.youtube" as="youtube" template="zhupanyn/youtube/view.phtml" after="-">
+                <action method="addToParentGroup"><group>detailed_info</group></action>
+                <action method="setTitle" translate="value"><value>Youtube</value></action>
+            </block>
+        </reference>-->
+        <!--<reference name="head">
+            <action method="addJs"><script>zhupanyn/youtube/main.js</script></action>
+        </reference>-->
+
+    </catalog_product_view>
+
+</layout>
